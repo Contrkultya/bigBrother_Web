@@ -4,6 +4,11 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import * as firebase from "firebase";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false;
 var firebaseConfig = {
@@ -18,10 +23,14 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 
 new Vue({
   router,
   store,
   vuetify,
+  firebase,
   render: (h) => h(App)
 }).$mount('#app');

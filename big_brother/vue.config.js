@@ -1,7 +1,6 @@
 module.exports = {
   pages: {
-    main: 'src/main.ts',
-    index: 'src/landing/main.ts'
+      index: 'src/main.ts',
   },
   "transpileDependencies": [
     "vuetify"
