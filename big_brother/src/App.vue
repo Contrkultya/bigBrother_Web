@@ -5,6 +5,11 @@
       clipped-left
     >
       <v-toolbar-title>Старший брат</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <template v-if="user.loggedIn">
+            <div class="nav-item">{{user.data.email}}</div>
+            <v-btn text @click="signOut()">Выйти</v-btn>
+          </template>
     </v-app-bar>
 
     <v-main>
@@ -16,21 +21,17 @@
           align="center"
           justify="center"
         >
-          <v-col class="shrink">
       <router-view></router-view>
-          </v-col>
         </v-row>
       </v-container>
       </v-main>
-
-    <v-footer app>
-      <span>&copy; 2020</span>
-    </v-footer>
   </v-app>
 </template>
 
 <script>
     import HelloWorld from '@/components/HelloWorld.vue';
+    import { mapGetters } from "vuex";
+import firebase from "firebase";
 
   export default {
     props: {
@@ -43,7 +44,27 @@
       drawer: null,
     }),
     created () {
-      this.$vuetify.theme.dark = true
+      //this.$vuetify.theme.dark = true
+      this.$vuetify.theme.primary = '#F44336';
+
     },
+      computed: {
+    ...mapGetters({
+      user: "user"
+    })
+  },
+    methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "login"
+          });
+        });
+    }
+  }
+
   }
 </script>

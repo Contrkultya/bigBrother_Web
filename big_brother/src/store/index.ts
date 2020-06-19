@@ -28,16 +28,19 @@ export default new Vuex.Store({
   getters: {
     user(state){
       return state.user
+    },
+    logs: state => {
+      return state.logz;
     }
   },
   mutations: {
+    ...vuexfireMutations,
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
     },
     SET_USER(state, data) {
       state.user.data = data;
     },
-    ...vuexfireMutations,
 
   },
   actions: {
